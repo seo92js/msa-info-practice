@@ -3,8 +3,11 @@ package com.seojs.licensing_service.controller;
 import com.seojs.licensing_service.model.License;
 import com.seojs.licensing_service.service.LicenseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Locale;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,8 +27,9 @@ public class LicenseController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createLicense(@PathVariable("organizationId") String organizationId, @RequestBody License request) {
-        return ResponseEntity.ok(licenseService.createLicense(request, organizationId));
+    public ResponseEntity<String> createLicense(@PathVariable("organizationId") String organizationId, @RequestBody License request,
+                                                @RequestHeader(value = "Accept-Language", required = false) Locale locale) {
+        return ResponseEntity.ok(licenseService.createLicense(request, organizationId, locale));
     }
 
     @DeleteMapping("/{licenseId}")

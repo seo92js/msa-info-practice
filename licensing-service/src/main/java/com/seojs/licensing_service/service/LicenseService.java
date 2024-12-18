@@ -1,12 +1,20 @@
 package com.seojs.licensing_service.service;
 
 import com.seojs.licensing_service.model.License;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.Locale;
 import java.util.Random;
 
+@RequiredArgsConstructor
 @Service
 public class LicenseService {
+    private final @Qualifier("customMessageSource") MessageSource messages;
+
     public License getLicense(String licenseId, String organizationId) {
         License license = new License();
         license.setId(new Random().nextInt(1000));
@@ -18,22 +26,24 @@ public class LicenseService {
         return license;
     }
 
-    public String createLicense(License license, String organizationId) {
+    public String createLicense(License license, String organizationId, Locale locale) {
         String responseMessage = null;
 
-        if (license != null) {
+        if (!StringUtils.isEmpty(license)) {
             license.setOrganizationId(organizationId);
-            responseMessage = String.format("This is the post and the object is: %s", license.toString());
+            responseMessage = String.format(messages.getMessage("license.create.message", null, locale), license.toString());
         }
+
         return responseMessage;
     }
 
     public String updateLicense(License license, String organizationId) {
         String responseMessage = null;
-        if (license != null) {
+        if (!StringUtils.isEmpty(license)) {
             license.setOrganizationId(organizationId);
-            responseMessage = String.format("This is the put and the object is: %s", license.toString());
+            responseMessage = String.format(messages.getMessage("license.update.message", null, null), license.toString());
         }
+
         return responseMessage;
     }
 
