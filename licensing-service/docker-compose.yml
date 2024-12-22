@@ -1,0 +1,15 @@
+services:
+  licensingservice:
+    image: ostock/licensing-service:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=dev"
+    networks:
+      backend:
+        aliases:
+          - "licensingservice"
+
+networks:
+  backend:
+    driver: bridge
