@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.0'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.bmuschko.docker-spring-boot-application' version '9.4.0'
 }
 
 group = 'com.seojs'
@@ -37,4 +38,13 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+def imagePrefix = 'ostock'
+
+docker {
+	springBootApplication {
+		baseImage = 'eclipse-temurin:17-jre'
+		images = ["${imagePrefix}/${project.name}"]
+	}
 }
