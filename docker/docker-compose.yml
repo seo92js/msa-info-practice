@@ -35,6 +35,20 @@ services:
       retries: 5
       start_period: 10s
 
+  eurekaserver:
+    image: ostock/eurekaserver:latest
+    ports:
+      - "8070:8070"
+    depends_on:
+      database:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    networks:
+      backend:
+        aliases:
+         - "eurekaserver"
+
   licensingservice:
     image: ostock/licensing-service:latest
     environment:
