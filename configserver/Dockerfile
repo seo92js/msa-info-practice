@@ -3,11 +3,11 @@ FROM openjdk:17-slim AS build
 
 LABEL maintainer="Seo <seo92js@gmail.com>"
 
-ARG JAR_FILE=build/libs/licensing-service-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=build/libs/configserver-0.0.1-SNAPSHOT.jar
 
-COPY ${JAR_FILE} licensing-service-0.0.1-SNAPSHOT.jar
+COPY ${JAR_FILE} configserver-0.0.1-SNAPSHOT.jar
 
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf /licensing-service-0.0.1-SNAPSHOT.jar)
+RUN mkdir -p target/dependency && (cd target/dependency; jar -xf /configserver-0.0.1-SNAPSHOT.jar)
 
 #stage2
 FROM openjdk:17-slim
@@ -21,4 +21,4 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
-ENTRYPOINT ["java", "-cp", "app:app/lib/*", "com.seojs.licensing_service.LicensingServiceApplication"]
+ENTRYPOINT ["java", "-cp", "app:app/lib/*", "com.seojs.configserver.ConfigserverApplication"]

@@ -1,0 +1,8 @@
+example:
+  property: test profile
+
+spring:
+  datasource:
+    url: jdbc:postgresql://database:5432/ostock_dev
+    username: postgres
+    password: '{cipher}b346e5a7f79dca3f517d962404d3b08fe931d2b34add29f8f13af5fad5a9c998'
