@@ -6,3 +6,6 @@ spring:
   cloud:
     config:
       uri: http://localhost:8071
+
+encrypt:
+  key: abcderfh12345678
